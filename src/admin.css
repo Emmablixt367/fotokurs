@@ -59,16 +59,18 @@
 .tabell tbody tr:first-child td { border-top: 0; }
 .tabell .id { width: 120px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .tabell .platser { width: 120px; }
-.tabell .pil { width: 56px; text-align: right; }
+.tabell .pil { width: 170px; text-align: right; white-space: nowrap; }
 .namn { font-weight: 600; }
 .epost { font-size: 13px; color: var(--muted); }
 
 /* Hela raden är klickbar: pil-länkens träffyta sträcks ut över raden */
 .tabell tbody tr { position: relative; transition: background 0.15s; }
 .tabell tbody tr:has(.a-lank):hover { background: var(--color-page); }
-.tabell .a-lank { min-height: 0; margin: 0; font-size: 18px; }
+.tabell .a-lank { min-height: 0; margin: 0; gap: 8px; font-size: 15px; }
+.tabell .pil-tecken { font-size: 18px; transition: transform 0.15s; }
 .tabell .a-lank::after { content: ''; position: absolute; inset: 0; }
-.tabell tbody tr:has(.a-lank):hover .a-lank { text-decoration: none; transform: translateX(3px); }
+.tabell tbody tr:has(.a-lank):hover .a-lank { text-decoration: underline; text-underline-position: from-font; }
+.tabell tbody tr:has(.a-lank):hover .pil-tecken { transform: translateX(3px); }
 .tabell .tom { padding: 40px 20px; text-align: center; color: var(--muted); }
 
 /* Detaljsidan */
@@ -113,6 +115,7 @@
   .dagar { grid-template-columns: 1fr; gap: 12px; }
   .dag { flex-direction: row; justify-content: space-between; align-items: center; }
   .tabell thead, .tabell .id, .tabell .platser { display: none; }
+  .tabell .pil { width: auto; }
   .tabell td { padding: 14px 16px; }
   .detaljkort .rad { grid-template-columns: 1fr; gap: 2px; }
   .initialer { width: 56px; height: 56px; font-size: 20px; }

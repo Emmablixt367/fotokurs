@@ -63,7 +63,9 @@ function Admin() {
                   <td className="platser">{b.platser}</td>
                   <td className="pil">
                     <Link className="a-lank" to="/admin/$bokningId" params={{ bokningId: b.id }}
-                      aria-label={`Visa bokning ${b.id}, ${b.namn}`}>→</Link>
+                      aria-label={`Visa bokning ${b.id}, ${b.namn}`}>
+                      Visa bokning <span className="pil-tecken" aria-hidden="true">→</span>
+                    </Link>
                   </td>
                 </tr>
               )) : (
