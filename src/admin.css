@@ -38,13 +38,6 @@
 }
 .a-lank:hover { text-decoration: underline; text-underline-position: from-font; }
 
-/* Nyckeltal */
-.nyckeltal { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-.nyckeltal > div {
-  display: flex; flex-direction: column; gap: 8px;
-  padding: 20px 24px; background: var(--color-surface); border: 1px solid var(--kant);
-}
-.nt-varde { font: 600 32px/1.1 var(--font-admin); font-variant-numeric: tabular-nums; }
 
 /* Datumknappar (färger delas med bokningssidans .datum i styles.css) */
 .dagar { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
@@ -109,10 +102,6 @@
 }
 @media (max-width: 600px) {
   .dagar { grid-template-columns: 1fr; gap: 12px; }
-  .nyckeltal { gap: 8px; }
-  .nyckeltal > div { padding: 12px; }
-  .nyckeltal .a-etikett { font-size: 10px; }
-  .nt-varde { font-size: 24px; }
   .dag { flex-direction: row; justify-content: space-between; align-items: center; }
   .tabell thead, .tabell .id, .tabell .platser { display: none; }
   .tabell td { padding: 14px 16px; }

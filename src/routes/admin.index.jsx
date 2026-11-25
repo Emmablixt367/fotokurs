@@ -23,9 +23,8 @@ function Admin() {
         <p className="a-txt">Lördagar · {TID} · Max {MAX_PLATSER} deltagare per tillfälle</p>
       </div>
 
-      <section className="a-rubrik" aria-labelledby="datum-rubrik">
-        <h2 className="a-h2" id="datum-rubrik">Välj datum</h2>
-        <div className="dagar" style={{ marginTop: 10 }}>
+      <section aria-label="Välj datum">
+        <div className="dagar">
           {DATUM.map((d) => {
             const n = bokadeplatser(d, bokningar)
             return (
@@ -41,17 +40,7 @@ function Admin() {
 
       <section className="a-rubrik" aria-labelledby="lista-rubrik">
         <h2 className="a-h2" id="lista-rubrik">Lördag {datum}</h2>
-
-        <div className="nyckeltal" style={{ marginTop: 10 }}>
-          <div>
-            <p className="a-etikett">Bokade</p>
-            <p className="nt-varde">{bokade}</p>
-          </div>
-          <div>
-            <p className="a-etikett">Lediga</p>
-            <p className="nt-varde">{MAX_PLATSER - bokade}</p>
-          </div>
-        </div>
+        <p className="a-txt">{bokade} bokade · {MAX_PLATSER - bokade} lediga</p>
 
         <div className="tabell-ram" style={{ marginTop: 16 }}>
           <table className="tabell">
