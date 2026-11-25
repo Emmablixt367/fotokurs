@@ -8,21 +8,28 @@ export const Route = createFileRoute('/')({
 
 function Start() {
   return (
-    <main className="sida start">
-      <header className="stack8">
-        <p className="liten">Fotoworkshop i Stockholm</p>
-        <h1 className="sidtitel">Ta kontroll över din kamera</h1>
-        <p className="brod">På ljusrums workshop för nybörjare övar du på bländare, slutartid och ISO i små grupper.</p>
-      </header>
-      <img
-        className="bild bild-hero"
-        src="/img/kamera.jpg"
-        alt="Person som håller en systemkamera framför ansiktet med objektivet riktat mot betraktaren"
-        width="1400" height="932"
-      />
-      <WorkshopCard />
-      <Prisblock />
-      <Link className="lank" to="/information">Läs mer om workshopen</Link>
-    </main>
+    <>
+      {/* Startbild över hela första skärmen. Etikett, rubrik och ingress syns direkt på bilden. */}
+      <section className="hero">
+        <img
+          className="hero-bild"
+          src="/img/kamera.jpg"
+          alt="Person som håller en systemkamera framför ansiktet med objektivet riktat mot betraktaren"
+          width="1400" height="932"
+        />
+        <div className="hero-text">
+          <p className="hero-etikett">Fotoworkshop i Stockholm</p>
+          <h1 className="hero-rubrik">Ta kontroll över din kamera</h1>
+          <p className="hero-ingress">På ljusrums workshop för nybörjare övar du på bländare, slutartid och ISO i små grupper.</p>
+        </div>
+      </section>
+
+      {/* Datum, plats och pris i en kolumn till vänster */}
+      <main className="sida start">
+        <WorkshopCard />
+        <Prisblock />
+        <Link className="lank" to="/information">Läs mer om workshopen</Link>
+      </main>
+    </>
   )
 }

@@ -1,4 +1,5 @@
-import { createRootRoute, HeadContent, Link, Outlet, ScrollRestoration } from '@tanstack/react-router'
+import { createRootRoute, HeadContent, Link, Outlet, ScrollRestoration, useRouterState } from '@tanstack/react-router'
+import { Topplist } from '../components/Topplist'
 
 export const Route = createRootRoute({
   component: Layout,
@@ -12,10 +13,13 @@ export const Route = createRootRoute({
 })
 
 function Layout() {
+  const sokvag = useRouterState({ select: (s) => s.location.pathname })
+  const admin = sokvag.startsWith('/admin')
   return (
     <>
       <HeadContent />
       <ScrollRestoration />
+      {!admin && <Topplist overlay={sokvag === '/'} />}
       <Outlet />
     </>
   )
