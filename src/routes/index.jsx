@@ -21,11 +21,12 @@ function Start() {
           <p className="hero-etikett">Fotoworkshop i Stockholm</p>
           <h1 className="hero-rubrik">Ta kontroll över din kamera</h1>
           <p className="hero-ingress">På ljusrums workshop för nybörjare övar du på bländare, slutartid och ISO i små grupper.</p>
+          <a className="hero-mer" href="#mer">Se datum och pris <span aria-hidden="true">↓</span></a>
         </div>
       </section>
 
       {/* Datum, plats och pris i en kolumn till vänster */}
-      <main className="sida start">
+      <main className="sida start" id="mer">
         <WorkshopCard />
         <Prisblock />
         <Link className="lank" to="/information">Läs mer om workshopen</Link>
