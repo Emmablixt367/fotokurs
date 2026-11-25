@@ -3,8 +3,10 @@ export const MAX_PLATSER = 10
 export const DATUM = ['14 november', '21 november', '28 november']
 export const TID = '10.00-15.00'
 
-const NYCKEL = 'fotokurs-bokningar'
+// Byt versionsnumret för att börja om från exempelbokningarna (gamla testbokningar ignoreras)
+const NYCKEL = 'fotokurs-bokningar-v2'
 const UTKAST = 'fotokurs-utkast'
+try { localStorage.removeItem('fotokurs-bokningar') } catch { /* privat läge e.d. */ }
 
 // Exempelbokningar från designen
 const EXEMPEL = [

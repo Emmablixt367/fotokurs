@@ -12,33 +12,45 @@ export const Route = createFileRoute('/admin/$bokningId')({
   head: ({ loaderData }) => ({ meta: [{ title: `Bokning ${loaderData?.id ?? ''} · Ljusrum` }] }),
 })
 
+const initialer = (namn) =>
+  namn.split(/\s+/).filter(Boolean).slice(0, 2).map((d) => d[0].toUpperCase()).join('')
+
 function Bokningsdetaljer() {
   const b = Route.useLoaderData()
   return (
     <AdminLayout>
-      <div className="stack8">
-        <h1 className="a-h1">Bokningsdetaljer</h1>
-        <p className="a-txt">Detaljerad information om vald bokning</p>
-      </div>
-      <div className="stack8">
-        <h2 className="a-h2">Bokning {b.id}</h2>
-        <p className="a-txt">Tryck på mejladressen för att skicka ett mejl direkt till deltagaren.</p>
-      </div>
-      <div className="kort">
-        <div>
-          <div className="stack8"><p className="k-label">Personuppgifter</p><p className="k-stor">{b.namn}</p></div>
-          <div className="stack8"><p className="k-label">E-post</p><p className="k-varde"><a href={`mailto:${b.epost}`}>{b.epost}</a></p></div>
+      <Link className="a-lank" to="/admin" search={{ datum: b.datum }}>← Tillbaka till bokningar</Link>
+
+      <div className="profil">
+        <span className="initialer" aria-hidden="true">{initialer(b.namn)}</span>
+        <div className="a-rubrik">
+          <p className="a-etikett">Bokning {b.id}</p>
+          <h1 className="profil-namn">{b.namn}</h1>
         </div>
-        <div>
-          <div className="stack8"><p className="k-label">Bokningsinformation</p><p className="k-stor">{b.datum}</p></div>
-          <div className="stack16">
-            <div className="stack8"><p className="k-label">Tid</p><p className="k-varde">{TID}</p></div>
-            <div className="stack8"><p className="k-label">Bokad plats</p><p className="k-varde">{b.platser} {b.platser === 1 ? 'plats' : 'platser'}</p></div>
-            <div className="stack8"><p className="k-label">Bokning</p><p className="k-varde">{b.id}</p></div>
+      </div>
+
+      <div className="detaljer">
+        <section className="detaljkort" aria-labelledby="person">
+          <h2 className="a-h2" id="person">Kontakt</h2>
+          <dl>
+            <div className="rad"><dt>E-post</dt><dd>{b.epost}</dd></div>
+          </dl>
+          <div className="knapprad">
+            <a className="knapp" href={`mailto:${b.epost}`}>Skicka mejl</a>
           </div>
-        </div>
+        </section>
+
+        <section className="detaljkort" aria-labelledby="info">
+          <h2 className="a-h2" id="info">Bokning</h2>
+          <dl>
+            <div className="rad"><dt>Workshop</dt><dd>Ta kontroll över din kamera</dd></div>
+            <div className="rad"><dt>Datum</dt><dd>Lördag {b.datum}</dd></div>
+            <div className="rad"><dt>Tid</dt><dd>{TID}</dd></div>
+            <div className="rad"><dt>Platser</dt><dd>{b.platser} {b.platser === 1 ? 'plats' : 'platser'}</dd></div>
+            <div className="rad"><dt>Bokningsnr</dt><dd>{b.id}</dd></div>
+          </dl>
+        </section>
       </div>
-      <Link className="a-lank" to="/admin" search={{ datum: b.datum }}>Tillbaka till bokningar</Link>
     </AdminLayout>
   )
 }

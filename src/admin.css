@@ -1,0 +1,121 @@
+/* ---------- Adminvyn ----------
+   Playfair Display för logotyp och rubriker (samma som de publika sidorna),
+   Inter för tabeller, siffror och etiketter. Innehållet är centrerat, max 1100 px. */
+
+.admin {
+  --muted: #6b5a5c;
+  --kant: var(--color-grey-200);
+  min-height: 100vh;
+  font: 400 16px/1.5 var(--font-admin);
+  color: var(--color-text);
+}
+
+/* Topplist */
+.topp { background: var(--color-text); color: #fff; }
+.topp-inre {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  max-width: 1100px; height: 64px; margin: 0 auto; padding: 0 32px;
+}
+.logo-grupp { display: flex; align-items: center; gap: 12px; }
+.logo { font: 700 24px/1 var(--font-serif); color: #fff; text-decoration: none; }
+.admin-etikett {
+  font: 600 11px/1 var(--font-admin); letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 4px 8px; border: 1px solid rgba(255, 255, 255, 0.4);
+}
+.topp-kurs { font-size: 15px; opacity: 0.8; }
+
+/* Innehåll */
+.akropp { display: flex; flex-direction: column; gap: 40px; max-width: 1100px; margin: 0 auto; padding: 48px 32px 64px; }
+.a-etikett { font: 600 12px/1.3 var(--font-admin); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.a-h1 { font: 700 40px/1.15 var(--font-serif); }
+.a-h2 { font: 600 24px/1.25 var(--font-serif); }
+.a-txt { font-size: 16px; color: var(--muted); }
+.a-rubrik { display: flex; flex-direction: column; gap: 6px; }
+.a-lank {
+  align-self: flex-start;
+  font: 600 15px/1 var(--font-admin); color: var(--color-accent);
+  text-decoration: none;
+}
+.a-lank:hover { text-decoration: underline; text-underline-position: from-font; }
+
+/* Nyckeltal */
+.nyckeltal { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.nyckeltal > div {
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 20px 24px; background: var(--color-surface); border: 1px solid var(--kant);
+}
+.nt-varde { font: 600 32px/1.1 var(--font-admin); font-variant-numeric: tabular-nums; }
+
+/* Datumknappar (färger delas med bokningssidans .datum i styles.css) */
+.dagar { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.dag {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 4px;
+  padding: 16px 20px; text-align: left; font-family: var(--font-admin);
+}
+.dag-datum { font-weight: 600; font-size: 17px; }
+.dag-antal { font-size: 13px; opacity: 0.75; }
+
+/* Tabell */
+.tabell-ram { background: var(--color-surface); border: 1px solid var(--kant); }
+.tabell { width: 100%; border-collapse: collapse; font-size: 15px; }
+.tabell th {
+  padding: 12px 20px; text-align: left; border-bottom: 1px solid var(--kant);
+  font: 600 12px/1.3 var(--font-admin); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+}
+.tabell td { padding: 16px 20px; border-top: 1px solid var(--color-section); vertical-align: middle; }
+.tabell tbody tr:first-child td { border-top: 0; }
+.tabell .id { width: 120px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.tabell .platser { width: 120px; }
+.tabell .pil { width: 56px; text-align: right; }
+.namn { font-weight: 600; }
+.epost { font-size: 13px; color: var(--muted); }
+
+/* Hela raden är klickbar: pil-länkens träffyta sträcks ut över raden */
+.tabell tbody tr { position: relative; transition: background 0.15s; }
+.tabell tbody tr:has(.a-lank):hover { background: var(--color-page); }
+.tabell .a-lank { min-height: 0; margin: 0; font-size: 18px; }
+.tabell .a-lank::after { content: ''; position: absolute; inset: 0; }
+.tabell tbody tr:has(.a-lank):hover .a-lank { text-decoration: none; transform: translateX(3px); }
+.tabell .tom { padding: 40px 20px; text-align: center; color: var(--muted); }
+
+/* Detaljsidan */
+.profil { display: flex; align-items: center; gap: 20px; }
+.initialer {
+  display: grid; place-items: center; flex: none;
+  width: 72px; height: 72px; border-radius: 50%;
+  background: var(--color-button); color: #fff; font: 700 26px/1 var(--font-serif);
+}
+.profil-namn { font: 700 36px/1.15 var(--font-serif); }
+
+.detaljer { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.detaljkort { background: var(--color-surface); border: 1px solid var(--kant); padding: 8px 24px; }
+.detaljkort h2 { padding: 16px 0 8px; }
+.detaljkort dl { margin: 0; }
+.detaljkort .rad { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: 16px; padding: 14px 0; border-top: 1px solid var(--color-section); }
+.detaljkort .rad:first-child { border-top: 0; }
+.detaljkort dt { font: 600 12px/1.6 var(--font-admin); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.detaljkort dd { margin: 0; overflow-wrap: anywhere; }
+.admin .knapp { display: inline-flex; width: auto; padding: 0 24px; font-family: var(--font-admin); }
+.knapprad { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; padding: 16px 0 20px; }
+
+/* Smalare skärmar */
+@media (max-width: 800px) {
+  .topp-inre { padding: 0 20px; }
+  .topp-kurs { display: none; }
+  .akropp { padding: 32px 20px 48px; gap: 32px; }
+  .a-h1 { font-size: 32px; }
+  .profil-namn { font-size: 28px; }
+  .detaljer { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .dagar { grid-template-columns: 1fr; gap: 12px; }
+  .nyckeltal { gap: 8px; }
+  .nyckeltal > div { padding: 12px; }
+  .nyckeltal .a-etikett { font-size: 10px; }
+  .nt-varde { font-size: 24px; }
+  .dag { flex-direction: row; justify-content: space-between; align-items: center; }
+  .tabell thead, .tabell .id, .tabell .platser { display: none; }
+  .tabell td { padding: 14px 16px; }
+  .detaljkort .rad { grid-template-columns: 1fr; gap: 2px; }
+  .initialer { width: 56px; height: 56px; font-size: 20px; }
+}

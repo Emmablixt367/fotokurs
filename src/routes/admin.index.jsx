@@ -17,53 +17,73 @@ function Admin() {
 
   return (
     <AdminLayout>
-      <div className="stack8">
-        <p className="a-kurs">Ta kontroll över din kamera</p>
+      <div className="a-rubrik">
+        <p className="a-etikett">Ta kontroll över din kamera</p>
         <h1 className="a-h1">Bokningar</h1>
+        <p className="a-txt">Lördagar · {TID} · Max {MAX_PLATSER} deltagare per tillfälle</p>
       </div>
 
-      <section className="stack16">
-        <div className="stack8">
-          <h2 className="a-h2">Datum</h2>
-          <p className="a-txt">Lördag · {TID}. Välj datum för att se bokningar.</p>
-        </div>
-        <div className="dagar">
-          {DATUM.map((d) => (
-            <button key={d} type="button" className="dag" aria-pressed={d === datum}
-              onClick={() => navigate({ search: { datum: d }, replace: true })}>
-              {d}
-            </button>
-          ))}
+      <section className="a-rubrik" aria-labelledby="datum-rubrik">
+        <h2 className="a-h2" id="datum-rubrik">Välj datum</h2>
+        <div className="dagar" style={{ marginTop: 10 }}>
+          {DATUM.map((d) => {
+            const n = bokadeplatser(d, bokningar)
+            return (
+              <button key={d} type="button" className="dag" aria-pressed={d === datum}
+                onClick={() => navigate({ search: { datum: d }, replace: true })}>
+                <span className="dag-datum">{d}</span>
+                <span className="dag-antal">{n} av {MAX_PLATSER} platser</span>
+              </button>
+            )
+          })}
         </div>
       </section>
 
-      <section className="stack16">
-        <div className="stack8">
-          <h2 className="a-h2">Bokningar {datum}</h2>
-          <p className="a-txt">Tryck visa bokning för att se fler detaljer.</p>
+      <section className="a-rubrik" aria-labelledby="lista-rubrik">
+        <h2 className="a-h2" id="lista-rubrik">Lördag {datum}</h2>
+
+        <div className="nyckeltal" style={{ marginTop: 10 }}>
+          <div>
+            <p className="a-etikett">Bokade</p>
+            <p className="nt-varde">{bokade}</p>
+          </div>
+          <div>
+            <p className="a-etikett">Lediga</p>
+            <p className="nt-varde">{MAX_PLATSER - bokade}</p>
+          </div>
         </div>
-        <table className="tabell">
-          <thead>
-            <tr><th>Bokning</th><th>Deltagare</th><th className="c3">Antal platser</th><th>Visa bokning</th></tr>
-          </thead>
-          <tbody>
-            {lista.length ? lista.map((b) => (
-              <tr key={b.id}>
-                <td data-l="Bokning">{b.id}</td>
-                <td data-l="Deltagare">{b.namn}</td>
-                <td data-l="Antal platser" className="c3">{b.platser}</td>
-                <td data-l="Visa bokning">
-                  <Link className="a-lank" to="/admin/$bokningId" params={{ bokningId: b.id }}>Visa bokning</Link>
-                </td>
+
+        <div className="tabell-ram" style={{ marginTop: 16 }}>
+          <table className="tabell">
+            <thead>
+              <tr>
+                <th className="id">Bokning</th>
+                <th>Deltagare</th>
+                <th className="platser">Platser</th>
+                <th className="pil"><span className="visually-hidden">Visa</span></th>
               </tr>
-            )) : (
-              <tr><td colSpan={4} className="tom">Inga bokningar ännu för detta datum.</td></tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {lista.length ? lista.map((b) => (
+                <tr key={b.id}>
+                  <td className="id">{b.id}</td>
+                  <td>
+                    <div className="namn">{b.namn}</div>
+                    <div className="epost">{b.epost}</div>
+                  </td>
+                  <td className="platser">{b.platser}</td>
+                  <td className="pil">
+                    <Link className="a-lank" to="/admin/$bokningId" params={{ bokningId: b.id }}
+                      aria-label={`Visa bokning ${b.id}, ${b.namn}`}>→</Link>
+                  </td>
+                </tr>
+              )) : (
+                <tr><td colSpan={4} className="tom">Inga bokningar ännu för {datum}.</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </section>
-
-      <p className="a-txt summa">{bokade} bokade · {MAX_PLATSER - bokade} lediga</p>
     </AdminLayout>
   )
 }
