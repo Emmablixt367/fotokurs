@@ -4,20 +4,22 @@ export default {
   title: 'Komponenter/Workshopkort',
   component: WorkshopCard,
   args: {
-    title: 'Fotografera i kvällsljus',
-    date: '12 december · kl. 15–17',
-    description: 'Ta med en kamera eller en mobil till fotopromenaden.',
+    date: '14, 21 & 28 november 2026',
+    time: '10.00-15.00',
+    place: 'Ljusrums fotostudio',
+    area: 'Södermalm i Stockholm',
   },
   argTypes: {
-    title: { control: 'text', name: 'Rubrik' },
     date: { control: 'text', name: 'Datum' },
-    description: { control: 'text', name: 'Beskrivning' },
+    time: { control: 'text', name: 'Tid' },
+    place: { control: 'text', name: 'Plats' },
+    area: { control: 'text', name: 'Område' },
   },
 }
 
 export const Standard = {}
-export const LangRubrik = {
-  name: 'Lång rubrik i smal vy',
-  args: { title: 'Fotografera stadens människor och mötesplatser i vinterns sista kvällsljus' },
+export const LangText = {
+  name: 'Lång text i smal vy',
+  args: { place: 'Ljusrums fotostudio och ateljé för analog och digital fotografi' },
   decorators: [(Story) => <div style={{ maxWidth: '20rem' }}><Story /></div>],
 }

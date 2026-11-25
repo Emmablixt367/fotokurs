@@ -1,30 +1,218 @@
-@import '@fontsource-variable/dm-sans';
+@import '@fontsource/playfair-display/600.css';
+@import '@fontsource/playfair-display/700.css';
+@import '@fontsource-variable/source-sans-3';
+@import '@fontsource-variable/inter';
 
-/* Samma värden används på webbsidan och i Storybook. */
+/* Färger, typsnitt och avstånd från Figma-filen "Fotokurs Emma".
+   Samma värden används på webbsidan och i Storybook. */
 :root {
-  --color-page: #f4f3ed;
+  color-scheme: light;
+  --color-page: #fffdf8;      /* color */
+  --color-text: #2c0005;      /* text */
+  --color-section: #f1f0f0;   /* sektion */
+  --color-grey-200: #d2cece;  /* grey/200 */
+  --color-button: #66001a;    /* knapp-bakgrund */
+  --color-accent: #800020;    /* knapp, länk */
+  --color-input: #f7f7f7;
   --color-surface: #ffffff;
-  --color-text: #222c28;
-  --color-accent: #285d4c;
-  --color-line: #b7c0b9;
-  --text-body: 1rem;
-  --text-heading: clamp(2rem, 6vw, 3.5rem);
-  --text-card-title: 1.5rem;
-  --space-card: clamp(1rem, 4vw, 2rem);
-  font-family: 'DM Sans Variable', system-ui, sans-serif;
+  --color-line: rgba(44, 0, 5, 0.25);
+
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Source Sans 3 Variable', 'Source Sans 3', system-ui, sans-serif;
+  --font-admin: 'Inter Variable', 'Inter', system-ui, sans-serif;
+
+  --space-page: 24px;
+  --gap: 24px;
+
+  font-family: var(--font-sans);
   color: var(--color-text);
   background: var(--color-page);
-  font-size: 100%;
-  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
-* { box-sizing: border-box; }
-body { margin: 0; font-size: var(--text-body); }
-.site { width: min(100% - 2rem, 58rem); margin: 0 auto; }
-nav { display: flex; gap: 1.5rem; border-bottom: 1px solid var(--color-line); }
-nav a { padding: 1rem 0; color: var(--color-accent); text-underline-offset: 0.25em; }
-nav [aria-current="page"] { font-weight: 700; }
-main { padding-block: 2.5rem; }
-h1 { font-size: var(--text-heading); line-height: 1.1; margin: 0 0 1.5rem; }
-h2 { font-size: var(--text-card-title); line-height: 1.25; margin: 0 0 0.75rem; }
-:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 3px; }
+* { box-sizing: border-box; min-width: 0; }
+body { margin: 0; background: var(--color-page); font-size: 16px; line-height: normal; overflow-x: clip; }
+h1, h2, h3, p, ul { margin: 0; }
+img { display: block; max-width: 100%; }
+a { color: var(--color-accent); }
+button { font: inherit; }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+
+/* ---------- Typografi (textstilar i Figma) ---------- */
+.sidtitel { font: 700 32px/normal var(--font-serif); }
+.sektionsrubrik { font: 600 24px/normal var(--font-serif); }
+.liten { font: 600 20px/normal var(--font-serif); }
+.brod { font: 400 16px/normal var(--font-sans); }
+/* Textlänkar: 44 px hög träffyta. Negativ marginal gör att layouten inte flyttas. */
+.lank, .a-lank {
+  display: inline-flex; align-items: center;
+  min-height: 44px; margin-block: -10px;
+}
+.lank {
+  align-self: flex-start;
+  font: 700 16px/normal var(--font-sans);
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-position: from-font;
+  background: none; border: 0; padding: 0; cursor: pointer;
+}
+
+/* ---------- Layout för publika sidor ---------- */
+.sida { display: flex; flex-direction: column; gap: var(--gap); padding: 62px var(--space-page) 32px; max-width: 640px; }
+.stack8 { display: flex; flex-direction: column; gap: 8px; }
+.stack16 { display: flex; flex-direction: column; gap: 16px; }
+.sektion { background: var(--color-section); padding: 16px; }
+.lista { padding-left: 24px; }
+
+.bild { width: 100%; height: auto; object-fit: cover; background: #111; }
+.bild-hero { aspect-ratio: 354 / 315; }
+.bild-info { aspect-ratio: 354 / 200; object-position: 50% 65.7%; }
+
+/* 24 px: tydligt, men tävlar inte med sidtiteln (32/44 px) */
+.pris { font: 600 24px/normal var(--font-serif); }
+.knapp {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; height: 48px; padding: 6px 16px;
+  background: var(--color-button); color: #fff;
+  font: 600 16px/normal var(--font-sans);
+  border: 0; text-decoration: none; cursor: pointer;
+  transition: background 0.15s;
+}
+.knapp:hover { background: var(--color-accent); }
+
+/* Datumval */
+.datumlista { display: flex; flex-direction: column; gap: 8px; }
+/* Valbar knapp (datum i bokningen och i admin): vit med kantlinje = går att klicka,
+   helfylld vinröd = vald. Skiljer sig tydligt från de grå informationsrutorna. */
+.datum, .dag {
+  background: var(--color-surface); border: 1px solid var(--color-grey-200);
+  color: var(--color-text); cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.datum:hover:not(:disabled), .dag:hover { border-color: var(--color-text); background: var(--color-page); }
+.datum[aria-checked='true'], .dag[aria-pressed='true'] {
+  background: var(--color-accent); border-color: var(--color-accent); color: #fff;
+}
+.datum {
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  width: 100%; height: 48px;
+  font: 400 16px/normal var(--font-sans);
+}
+.datum[aria-checked='true'] { font-weight: 600; }
+.datum:disabled { opacity: 0.5; cursor: not-allowed; }
+.datum .radio { width: 16px; height: 16px; border-radius: 50%; border: 1px solid currentColor; flex: none; }
+.datum[aria-checked='true'] .radio { background: #fff; box-shadow: inset 0 0 0 3px var(--color-accent); }
+.datum .txt { width: 100px; text-align: left; }
+
+/* Formulär */
+fieldset { border: 0; margin: 0; padding: 0; }
+legend { padding: 0; margin-bottom: 8px; }
+/* 8 px mellan ledtext och fält, 24 px mellan fälten – så hör ledtexten till rätt fält */
+.faltgrupp { display: flex; flex-direction: column; gap: 24px; }
+.falt { display: flex; flex-direction: column; gap: 8px; }
+.falt input {
+  width: 100%; height: 48px; padding: 0 12px;
+  background: var(--color-input); border: 1px solid var(--color-text); border-radius: 0;
+  font: 400 16px/normal var(--font-sans); color: var(--color-text);
+}
+.falt input:focus { outline: 2px solid var(--color-accent); outline-offset: 1px; }
+.fel { color: var(--color-accent); font-size: 14px; }
+
+/* Startsida och informationssida: en kolumn på mobil, två på dator */
+.start, .info { display: flex; flex-direction: column; gap: var(--gap); }
+
+@media (min-width: 900px) {
+  .sida { max-width: 1180px; margin: 0 auto; padding: 80px 56px 64px; }
+  .sida.smal { max-width: 640px; }
+  .sidtitel { font-size: 44px; }
+  .knapp { max-width: 360px; }
+
+  .start {
+    display: grid; gap: var(--gap) 64px; align-items: start; align-content: center;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas: 'head bild' 'fakta bild' 'pris bild' 'lank bild';
+  }
+  .start > header { grid-area: head; }
+  .start > .bild { grid-area: bild; max-width: 540px; align-self: center; }
+  .start > .fakta { grid-area: fakta; }
+  .start > .prisblock { grid-area: pris; }
+  .start > .lank { grid-area: lank; }
+
+  .info {
+    display: grid; gap: var(--gap) 64px; align-items: start;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas: 'titel text' 'bild text' 'pris text' '. lank';
+  }
+  .info > h1 { grid-area: titel; }
+  .info > .bild { grid-area: bild; max-width: 540px; }
+  .info > .sektion { grid-area: text; }
+  .info > .prisblock { grid-area: pris; }
+  .info > .lank { grid-area: lank; }
+}
+
+/* ---------- Admin (datordesign, Inter) ---------- */
+.admin { min-height: 100vh; font-family: var(--font-admin); }
+.topp {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  height: 82px; padding: 10px 30px;
+  background: var(--color-text); color: #fff;
+}
+.logo { font: 700 29px/normal var(--font-admin); color: #fff; text-decoration: none; }
+.topp span { font: 400 24px/normal var(--font-admin); }
+.akropp { display: flex; flex-direction: column; gap: 48px; padding: 56px; max-width: 1440px; }
+.a-h1 { font: 700 56px/normal var(--font-admin); }
+.a-kurs { font: 400 24px/normal var(--font-admin); }
+.a-h2 { font: 600 36px/normal var(--font-admin); }
+.a-txt { font: 400 24px/normal var(--font-admin); }
+.a-lank {
+  align-self: flex-start;
+  font: 400 24px/normal var(--font-admin); color: var(--color-accent);
+  text-decoration: underline; text-underline-position: from-font;
+}
+
+.dagar { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px; }
+.dag { height: 76px; font: 700 24px/normal var(--font-admin); }
+
+.tabell { width: 100%; border-collapse: collapse; border: 1px solid var(--color-text); background: var(--color-surface); font: 400 24px/normal var(--font-admin); }
+.tabell th { background: var(--color-section); font-weight: 700; text-align: left; padding: 16px 12px; }
+.tabell td { padding: 16px 12px; border-top: 1px solid var(--color-line); }
+/* Hela raden är klickbar: länkens träffyta sträcks ut över raden */
+.tabell tbody tr { position: relative; }
+.tabell tbody tr:has(.a-lank):hover { background: var(--color-section); }
+.tabell .a-lank { margin-block: 0; min-height: 0; }
+.tabell .a-lank::after { content: ''; position: absolute; inset: 0; }
+.tabell tbody tr:first-child td { border-top: 0; }
+.tabell th:first-child, .tabell td:first-child { padding-left: 24px; width: 144px; }
+.tabell .c3 { width: 284px; }
+.tabell .tom { color: #6b5a5c; font-style: italic; }
+.summa { text-align: right; }
+
+.kort { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start; }
+.kort > div { background: var(--color-section); padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+.k-label { font: 600 24px/normal var(--font-admin); }
+.k-stor { font: 600 36px/normal var(--font-admin); }
+.k-varde { font: 400 24px/normal var(--font-admin); }
+.k-varde a { color: inherit; }
+
+@media (max-width: 900px) {
+  .topp { height: 60px; padding: 10px 20px; }
+  .logo { font-size: 22px; }
+  .topp span { font-size: 18px; }
+  .akropp { padding: 32px 20px; gap: 32px; }
+  .a-h1 { font-size: clamp(28px, 6vw, 44px); }
+  .a-h2, .k-stor { font-size: 26px; }
+  .a-txt, .a-lank, .k-varde, .k-label, .tabell { font-size: 18px; }
+  .dagar { gap: 12px; }
+  .dag { height: 56px; font-size: 18px; }
+  .kort { grid-template-columns: 1fr; gap: 16px; }
+  .kort > div { padding: 16px; }
+}
+@media (max-width: 600px) {
+  .dagar { grid-template-columns: 1fr; }
+  .tabell thead { display: none; }
+  .tabell tr { display: grid; padding: 12px 16px; border-top: 1px solid var(--color-line); }
+  .tabell tr:first-child { border-top: 0; }
+  .tabell td, .tabell td:first-child { display: flow-root; border: 0; padding: 3px 0 3px 8em; width: auto; }
+  .tabell td::before { content: attr(data-l); float: left; width: 7.5em; margin-left: -8em; font-weight: 700; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

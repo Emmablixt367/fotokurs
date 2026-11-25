@@ -1,20 +1,22 @@
-import { createRootRoute, HeadContent, Link, Outlet } from '@tanstack/react-router'
+import { createRootRoute, HeadContent, Link, Outlet, ScrollRestoration } from '@tanstack/react-router'
 
 export const Route = createRootRoute({
   component: Layout,
-  head: () => ({ meta: [{ title: 'Fotoworkshopen' }] }),
-  notFoundComponent: () => <h1>Sidan finns inte</h1>,
+  head: () => ({ meta: [{ title: 'Ljusrum Fotoworkshop' }] }),
+  notFoundComponent: () => (
+    <div className="sida">
+      <h1 className="sidtitel">Sidan finns inte</h1>
+      <Link className="lank" to="/">Till startsida</Link>
+    </div>
+  ),
 })
 
 function Layout() {
   return (
-    <div className="site">
+    <>
       <HeadContent />
-      <nav aria-label="Huvudmeny">
-        <Link to="/" activeOptions={{ exact: true }}>Hem</Link>
-        <Link to="/admin">Admin</Link>
-      </nav>
-      <main><Outlet /></main>
-    </div>
+      <ScrollRestoration />
+      <Outlet />
+    </>
   )
 }

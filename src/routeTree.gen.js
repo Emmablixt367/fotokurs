@@ -10,21 +10,56 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AdminRouteImport } from './routes/admin'
+import { Route as BokningRouteImport } from './routes/bokning'
+import { Route as GranskaRouteImport } from './routes/granska'
+import { Route as InformationRouteImport } from './routes/information'
+import { Route as KlarRouteImport } from './routes/klar'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminBokningIdRouteImport } from './routes/admin.$bokningId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 })
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
+const BokningRoute = BokningRouteImport.update({
+  id: '/bokning',
+  path: '/bokning',
+  getParentRoute: () => rootRouteImport,
+})
+const GranskaRoute = GranskaRouteImport.update({
+  id: '/granska',
+  path: '/granska',
+  getParentRoute: () => rootRouteImport,
+})
+const InformationRoute = InformationRouteImport.update({
+  id: '/information',
+  path: '/information',
+  getParentRoute: () => rootRouteImport,
+})
+const KlarRoute = KlarRouteImport.update({
+  id: '/klar',
+  path: '/klar',
+  getParentRoute: () => rootRouteImport,
+})
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+})
+const AdminBokningIdRoute = AdminBokningIdRouteImport.update({
+  id: '/admin/$bokningId',
+  path: '/admin/$bokningId',
   getParentRoute: () => rootRouteImport,
 })
 
 const rootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRoute: AdminRoute,
+  BokningRoute: BokningRoute,
+  GranskaRoute: GranskaRoute,
+  InformationRoute: InformationRoute,
+  KlarRoute: KlarRoute,
+  AdminBokningIdRoute: AdminBokningIdRoute,
+  AdminIndexRoute: AdminIndexRoute,
 }
 export const routeTree = rootRouteImport._addFileChildren(rootRouteChildren)
