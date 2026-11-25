@@ -43,6 +43,10 @@ export function sparaUtkast(utkast) {
   skriv(sessionStorage, UTKAST, utkast)
 }
 
+export function taBortBokning(id) {
+  skriv(localStorage, NYCKEL, hamtaBokningar().filter((b) => b.id !== id))
+}
+
 export function bekraftaBokning() {
   const utkast = hamtaUtkast()
   if (!utkast.namn) return null

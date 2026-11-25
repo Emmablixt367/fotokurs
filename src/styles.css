@@ -139,7 +139,7 @@ legend { padding: 0; margin-bottom: 8px; }
     grid-template-areas: 'head bild' 'fakta bild' 'pris bild' 'lank bild';
   }
   .start > header { grid-area: head; }
-  .start > .bild { grid-area: bild; max-width: 540px; align-self: center; }
+  .start > .bild { grid-area: bild; max-width: 540px; }
   .start > .fakta { grid-area: fakta; }
   .start > .prisblock { grid-area: pris; }
   .start > .lank { grid-area: lank; }
@@ -147,7 +147,7 @@ legend { padding: 0; margin-bottom: 8px; }
   .info {
     display: grid; gap: var(--gap) 64px; align-items: start;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    grid-template-areas: 'titel text' 'bild text' 'pris text' '. lank';
+    grid-template-areas: 'titel .' 'bild text' 'pris text' '. lank';
   }
   .info > h1 { grid-area: titel; }
   .info > .bild { grid-area: bild; max-width: 540px; }

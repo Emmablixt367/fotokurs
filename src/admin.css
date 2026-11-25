@@ -89,6 +89,15 @@
 .detaljkort dt { font: 600 12px/1.6 var(--font-admin); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 .detaljkort dd { margin: 0; overflow-wrap: anywhere; }
 .admin .knapp { display: inline-flex; width: auto; padding: 0 24px; font-family: var(--font-admin); }
+/* Sekundär knapp: vinröd kantlinje, fylls vid hover */
+.knapp-sekundar {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 48px; padding: 0 24px;
+  background: transparent; color: var(--color-button); border: 1px solid var(--color-button);
+  font: 600 16px/1 var(--font-admin); cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.knapp-sekundar:hover { background: var(--color-button); color: #fff; }
 .knapprad { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; padding: 16px 0 20px; }
 
 /* Smalare skärmar */

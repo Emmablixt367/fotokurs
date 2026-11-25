@@ -1,6 +1,6 @@
-import { createFileRoute, Link, notFound } from '@tanstack/react-router'
+import { createFileRoute, Link, notFound, useNavigate } from '@tanstack/react-router'
 import { AdminLayout } from '../components/AdminLayout'
-import { TID, hittaBokning } from '../bokningar'
+import { TID, hittaBokning, taBortBokning } from '../bokningar'
 
 export const Route = createFileRoute('/admin/$bokningId')({
   loader: ({ params }) => {
@@ -17,6 +17,14 @@ const initialer = (namn) =>
 
 function Bokningsdetaljer() {
   const b = Route.useLoaderData()
+  const navigate = useNavigate()
+
+  function taBort() {
+    if (!window.confirm(`Ta bort bokning ${b.id} för ${b.namn}? Det går inte att ångra.`)) return
+    taBortBokning(b.id)
+    navigate({ to: '/admin', search: { datum: b.datum } })
+  }
+
   return (
     <AdminLayout>
       <Link className="a-lank" to="/admin" search={{ datum: b.datum }}>← Tillbaka till bokningar</Link>
@@ -49,6 +57,9 @@ function Bokningsdetaljer() {
             <div className="rad"><dt>Platser</dt><dd>{b.platser} {b.platser === 1 ? 'plats' : 'platser'}</dd></div>
             <div className="rad"><dt>Bokningsnr</dt><dd>{b.id}</dd></div>
           </dl>
+          <div className="knapprad">
+            <button type="button" className="knapp-sekundar" onClick={taBort}>Ta bort bokning</button>
+          </div>
         </section>
       </div>
     </AdminLayout>
